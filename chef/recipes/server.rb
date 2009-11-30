@@ -73,3 +73,10 @@ http_request "compact chef couchDB" do
     end
   end
 end
+
+%w(nodes roles registrations)
+  http_request "compact chef views couchDB" do
+    action :post
+    url "http://localhost:5984/chef/_compact/#{view}"
+  end
+end
