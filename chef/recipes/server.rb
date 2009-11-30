@@ -74,7 +74,7 @@ http_request "compact chef couchDB" do
   end
 end
 
-%w(nodes roles registrations)
+%w(nodes roles registrations).each do |view|
   http_request "compact chef views couchDB" do
     action :post
     url "http://localhost:5984/chef/_compact/#{view}"
