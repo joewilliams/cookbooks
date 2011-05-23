@@ -2,29 +2,32 @@
 # Cookbook Name:: ssh_known_hosts
 # Recipe:: default
 #
-# Copyright 2009, Scott M. Likens
-#
-# Licensed under the Apache License, Version 2.0 (the "License");
-# you may not use this file except in compliance with the License.
-# You may obtain a copy of the License at
-#
-#     http://www.apache.org/licenses/LICENSE-2.0
-#
-# Unless required by applicable law or agreed to in writing, software
-# distributed under the License is distributed on an "AS IS" BASIS,
-# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-# See the License for the specific language governing permissions and
-# limitations under the License.
-#
+# Copyright 2009, Adapp, Inc.
 
+sleep 2
 nodes = []
-search(:node, "*", %w{ keys_ssh_host_rsa_public ipaddress hostname }) {|n| nodes << n}
+search(:node, "*:*") do |z|
+  # Prior to first chef-client run, the current node may not have attributes from search
+  if z.name == node.name
+    z["hostname"] = node["hostname"]
+    z["ipaddress"] = node["ipaddress"]
+    z["keys"] = node["keys"]
+  end
+
+  # Skip the node if it doesn't have one or more of these attributes
+  if z["hostname"].nil? || z["ipaddress"].nil? || z["keys"].nil?
+    Chef::Log.warn("Could not find one or more of these attributes on node #{z.name}: hostname, ipaddress, keys. Skipping node.")
+  else
+    nodes << z
+  end
+end
 
 template "/etc/ssh/ssh_known_hosts" do
   source "known_hosts.erb"
   mode 0440
   owner "root"
   group "root"
+  backup false
   variables(
     :nodes => nodes
   )

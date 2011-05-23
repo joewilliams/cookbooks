@@ -1,35 +1,52 @@
 {
-    "dependencies": {
-    },
-    "replacing": {
-    },
-    "description": "Installs python packages",
-    "groupings": {
-    },
-    "platforms": {
-      "ubuntu": [
+  "name": "python",
+  "description": "Installs Python, pip and virtualenv. Includes LWRPs for managing Python packages with `pip` and `virtualenv` isolated Python environments.",
+  "long_description": "",
+  "maintainer": "Opscode, Inc.",
+  "maintainer_email": "cookbooks@opscode.com",
+  "license": "Apache 2.0",
+  "platforms": {
+    "debian": [
 
-      ],
-      "debian": [
+    ],
+    "ubuntu": [
 
-      ]
-    },
-    "version": "0.7.0",
-    "recommendations": {
-    },
-    "name": "python",
-    "maintainer": "Opscode, Inc.",
-    "long_description": "",
-    "recipes": {
-    },
-    "suggestions": {
-    },
-    "maintainer_email": "cookbooks@opscode.com",
-    "attributes": {
-    },
-    "conflicting": {
-    },
-    "license": "Apache 2.0",
-    "providing": {
-    }
-  }
+    ],
+    "centos": [
+
+    ],
+    "redhat": [
+
+    ],
+    "fedora": [
+
+    ]
+  },
+  "dependencies": {
+    "build-essential": [
+
+    ]
+  },
+  "recommendations": {
+  },
+  "suggestions": {
+  },
+  "conflicting": {
+  },
+  "providing": {
+  },
+  "replacing": {
+  },
+  "attributes": {
+  },
+  "groupings": {
+  },
+  "recipes": {
+    "python": "Installs python, pip, and virtualenv",
+    "python::package": "Installs python using packages.",
+    "python::source": "Installs python from source.",
+    "python::pip": "Installs pip from source.",
+    "python::virtualenv": "Installs virtualenv using the python_pip resource."
+  },
+  "version": "1.0.2"
+}

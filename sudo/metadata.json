@@ -1,101 +1,104 @@
 {
-    "dependencies": {
-    },
-    "replacing": {
-    },
-    "description": "Installs and configures sudo",
-    "groupings": {
-    },
-    "platforms": {
-      "freebsd": [
+  "name": "sudo",
+  "description": "Installs sudo and configures /etc/sudoers",
+  "long_description": "",
+  "maintainer": "Opscode, Inc.",
+  "maintainer_email": "cookbooks@opscode.com",
+  "license": "Apache 2.0",
+  "platforms": {
+    "redhat": ">= 0.0.0",
+    "centos": ">= 0.0.0",
+    "fedora": ">= 0.0.0",
+    "ubuntu": ">= 0.0.0",
+    "debian": ">= 0.0.0",
+    "freebsd": ">= 0.0.0"
+  },
+  "dependencies": {
+  },
+  "recommendations": {
+  },
+  "suggestions": {
+  },
+  "conflicting": {
+  },
+  "providing": {
+  },
+  "replacing": {
+  },
+  "attributes": {
+    "authorization": {
+      "display_name": "Authorization",
+      "description": "Hash of Authorization attributes",
+      "type": "hash",
+      "choice": [
 
       ],
-      "ubuntu": [
-
-      ],
-      "fedora": [
-
-      ],
-      "centos": [
-
-      ],
-      "debian": [
-
-      ],
-      "redhat": [
+      "calculated": false,
+      "required": "optional",
+      "recipes": [
 
       ]
     },
-    "version": "0.7.0",
-    "recommendations": {
+    "authorization/sudoers": {
+      "display_name": "Authorization Sudoers",
+      "description": "Hash of Authorization/Sudoers attributes",
+      "type": "hash",
+      "choice": [
+
+      ],
+      "calculated": false,
+      "required": "optional",
+      "recipes": [
+
+      ]
     },
-    "name": "sudo",
-    "maintainer": "Opscode, Inc.",
-    "long_description": "",
-    "recipes": {
+    "authorization/sudoers/users": {
+      "display_name": "Sudo Users",
+      "description": "Users who are allowed sudo ALL",
+      "type": "array",
+      "default": "",
+      "choice": [
+
+      ],
+      "calculated": false,
+      "required": "optional",
+      "recipes": [
+
+      ]
     },
-    "suggestions": {
+    "authorization/sudoers/groups": {
+      "display_name": "Sudo Groups",
+      "description": "Groups who are allowed sudo ALL",
+      "type": "array",
+      "default": "",
+      "choice": [
+
+      ],
+      "calculated": false,
+      "required": "optional",
+      "recipes": [
+
+      ]
     },
-    "maintainer_email": "cookbooks@opscode.com",
-    "attributes": {
-      "authorization/sudoers/groups": {
-        "calculated": false,
-        "default": "",
-        "type": "array",
-        "choice": [
+    "authorization/sudoers/passwordless": {
+      "display_name": "Passwordless Sudo",
+      "description": "",
+      "type": "string",
+      "default": "false",
+      "choice": [
 
-        ],
-        "description": "Groups who are allowed sudo ALL",
-        "display_name": "Sudo Groups",
-        "recipes": [
+      ],
+      "calculated": false,
+      "required": "optional",
+      "recipes": [
 
-        ],
-        "required": "optional"
-      },
-      "authorization/sudoers/users": {
-        "calculated": false,
-        "default": "",
-        "type": "array",
-        "choice": [
-
-        ],
-        "description": "Users who are allowed sudo ALL",
-        "display_name": "Sudo Users",
-        "recipes": [
-
-        ],
-        "required": "optional"
-      },
-      "authorization/sudoers": {
-        "calculated": false,
-        "type": "hash",
-        "choice": [
-
-        ],
-        "description": "Hash of Authorization/Sudoers attributes",
-        "display_name": "Authorization Sudoers",
-        "recipes": [
-
-        ],
-        "required": "optional"
-      },
-      "authorization": {
-        "calculated": false,
-        "type": "hash",
-        "choice": [
-
-        ],
-        "description": "Hash of Authorization attributes",
-        "display_name": "Authorization",
-        "recipes": [
-
-        ],
-        "required": "optional"
-      }
-    },
-    "conflicting": {
-    },
-    "license": "Apache 2.0",
-    "providing": {
+      ]
     }
-  }
+  },
+  "groupings": {
+  },
+  "recipes": {
+    "sudo": "Installs sudo and configures /etc/sudoers"
+  },
+  "version": "1.0.0"
+}

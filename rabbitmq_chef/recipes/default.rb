@@ -23,10 +23,10 @@ def debian_before_squeeze?
   platform?("debian") && (node.platform_version.to_f < 5.0 || (node.platform_version.to_f == 5.0 && node.platform_version !~ /.*sid/ ))
 end
 
-if (platform?("ubuntu") && node.platform_version <= "9.10") || debian_before_squeeze?
+if (platform?("ubuntu") && node.platform_version.to_f <= 9.10) || debian_before_squeeze?
   include_recipe("erlang")
 
-  rabbitmq_dpkg_path = File.join(Chef::Config[:file_cache_path], "/", "rabbitmq-server_1.7.2-1_all.deb")
+  rabbitmq_dpkg_path = ::File.join(Chef::Config[:file_cache_path], "/", "rabbitmq-server_1.7.2-1_all.deb")
 
   remote_file(rabbitmq_dpkg_path) do
     checksum "ea2bbbb41f6d539884498bbdb5c7d3984643127dbdad5e9f7c28ec9df76b1355"
@@ -64,5 +64,5 @@ end
 # grant the mapper user the ability to do anything with the /chef vhost
 # the three regex's map to config, write, read permissions respectively
 execute 'rabbitmqctl set_permissions -p /chef chef ".*" ".*" ".*"' do
-  not_if 'rabbitmqctl list_user_permissions mapper|grep /chef'
+  not_if 'rabbitmqctl list_user_permissions chef|grep /chef'
 end

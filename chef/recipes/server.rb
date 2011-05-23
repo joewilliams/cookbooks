@@ -19,6 +19,8 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+require 'open-uri'
+
 root_group = value_for_platform(
   "openbsd" => { "default" => "wheel" },
   "freebsd" => { "default" => "wheel" },
@@ -39,27 +41,15 @@ if node[:chef][:webui_enabled]
   end
 end
 
-if node[:chef][:server_log] == "STDOUT"
-  server_log = node[:chef][:server_log]
-  show_time  = "false"
-else
-  server_log = "\"#{node[:chef][:server_log]}\""
-  show_time  = "true"
-end
-
 template "/etc/chef/server.rb" do
   source "server.rb.erb"
   owner "root"
   group root_group
   mode "644"
-  variables(
-    :server_log => server_log,
-    :show_time  => show_time
-  )
   if node[:chef][:webui_enabled]
-    notifies :restart, resources( :service => "chef-solr", :service => "chef-solr-indexer", :service => "chef-server", :service => "chef-server-webui"), :delayed
+    notifies :restart, resources( :service => [ "chef-solr", "chef-solr-indexer", "chef-server", "chef-server-webui" ]), :delayed
   else
-    notifies :restart, resources( :service => "chef-solr", :service => "chef-solr-indexer", :service => "chef-server"), :delayed
+    notifies :restart, resources( :service => [ "chef-solr", "chef-solr-indexer", "chef-server" ]), :delayed
   end
 end
 

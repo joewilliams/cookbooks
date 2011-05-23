@@ -1,8 +1,10 @@
 maintainer        "Opscode, Inc."
 maintainer_email  "cookbooks@opscode.com"
 license           "Apache 2.0"
-description       "Installs and configures sudo"
-version           "0.7"
+description       "Installs sudo and configures /etc/sudoers"
+version           "1.0.0"
+
+recipe "sudo", "Installs sudo and configures /etc/sudoers"
 
 %w{redhat centos fedora ubuntu debian freebsd}.each do |os|
   supports os
@@ -29,3 +31,9 @@ attribute "authorization/sudoers/groups",
   :description => "Groups who are allowed sudo ALL",
   :type => "array",
   :default => ""
+
+attribute "authorization/sudoers/passwordless",
+  :display_name => "Passwordless Sudo",
+  :description => "",
+  :type => "string",
+  :default => "false"

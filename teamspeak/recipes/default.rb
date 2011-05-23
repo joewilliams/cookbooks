@@ -32,7 +32,7 @@ template "/etc/teamspeak-server/server.ini" do
   mode "0600"
 end
 
-include_recipe "php::php5"
+include_recipe "php"
 include_recipe "apache2::mod_php5"
 
 directory "/srv/www/tsdisplay" do
@@ -49,7 +49,7 @@ bash "install tsdisplay" do
 wget http://softlayer.dl.sourceforge.net/sourceforge/tsdisplay/TeamspeakDisplay-PR3.zip
 unzip TeamSpeakDisplay-PR3.zip  
 EOH
-  not_if { File.exists?("/srv/www/tsdisplay/TeamspeakDisplay-PR3.zip") }
+  not_if { ::File.exists?("/srv/www/tsdisplay/TeamspeakDisplay-PR3.zip") }
 end
 
 template "/srv/www/tsdisplay/demo.php" do
